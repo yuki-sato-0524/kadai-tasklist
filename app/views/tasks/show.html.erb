@@ -1,12 +1,23 @@
-<h1>id「<%=@task.id %>」のタスク詳細</h1>
-
-
-<p>タスク：<%= @task.content %></p>
-<p>状況：<%= @task.status %></p>
-
-
-
-<% #編集・削除リンク %>
-<%= link_to "編集画面へ", edit_task_path %>
-<%= link_to "削除する", @task, method: :delete, data:{confirm: "削除してもよろしいですか？"} %>
-<%= link_to "一覧に戻る", tasks_path %>
+<div class="col-xs-12 col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6">
+  <h1>id「<%=@task.id %>」のタスク詳細</h1>
+    <table class="table table-bordered">
+      <tr>
+        <th class="text-center info">id</th>
+        <td><%= @task.id %></td>
+      </tr>
+      <tr>
+        <th class="text-center info">タスク</th>
+        <td><%= @task.content %></td>
+      </tr>
+      <tr>
+        <th class="text-center info">状況</th>
+        <td><%= @task.status %></td>
+      </tr>
+    </table>
+  
+  <div class="col-xs-8">
+    <% #編集・削除リンク %>
+    <%= link_to "編集画面へ", edit_task_path, class:"btn btn-success" %>
+    <%= link_to "削除する", @task, method: :delete, data:{confirm: "削除してもよろしいですか？"}, class:"btn btn-danger" %>
+  </div>
+</div>

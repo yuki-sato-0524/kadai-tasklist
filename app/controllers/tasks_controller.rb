@@ -1,10 +1,12 @@
 class TasksController < ApplicationController
+  
+  before_action :set_task, only: [:show,:destroy,:edit,:update]
+  
   def index
-    @tasks = Task.all
+    @tasks = Task.all.page(params[:page]).per(20)
   end
 
   def show
-    @task = Task.find(params[:id])
   end
 
   def new
@@ -24,12 +26,10 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find(params[:id])
+    
   end
 
   def update
-    @task = Task.find(params[:id])
-    
     if @task.update(task_params)
       flash[:success] = "タスク内容更新！"
       redirect_to @task
@@ -42,7 +42,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
     @task.destroy
     
     flash[:success] = "削除完了！"
@@ -51,6 +50,10 @@ class TasksController < ApplicationController
   
   
   private
+  
+  def set_task
+    @task = Task.find(params[:id])
+  end
 
   def task_params
     params.require(:task).permit(:content,:status)

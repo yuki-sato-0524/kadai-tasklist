@@ -1,5 +1,3 @@
-<h1>タスク編集画面</h1>
+<h1 class="col-xs-12 col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6">id「<%= @task.id %>」のタスク編集画面</h1>
 
-<%= render "form", task: @task %>
-
-<%= link_to "戻る", @task %>
+<%= render "tasks/form", task: @task %>
