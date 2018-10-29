@@ -7,5 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 (1..100).each do |i|
-  Task.create(content: "テストタスク　#{i}", status: "テストステータス　"+i.to_s)
+  Task.create(content: "テストタスク　#{i}", status: "テストステ　"+i.to_s)
 end
+
