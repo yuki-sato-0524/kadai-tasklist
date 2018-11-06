@@ -1,20 +1,26 @@
 class TasksController < ApplicationController
   
   before_action :set_task, only: [:show,:destroy,:edit,:update]
+  before_action :require_user_logged_in, only:[:show,:new,:create,:edit,:update,:destroy]
+  before_action :correct_user, only: [:destroy,:edit,:update]
+  
   
   def index
-    @tasks = Task.all.page(params[:page]).per(20)
+    if logged_in?
+      #@tasks = Task.all.order("created_at DESC").page(params[:page]).per(20)
+      @tasks = current_user.task.order("created_at DESC").page(params[:page]).per(20)
+    end
   end
 
   def show
   end
 
   def new
-    @task = Task.new
+    @task = current_user.task.build
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.task.build(task_params)
     
     if @task.save
       flash[:success] = "タスクを登録しました"
@@ -53,6 +59,12 @@ class TasksController < ApplicationController
   
   def set_task
     @task = Task.find(params[:id])
+  end
+  
+  def correct_user
+    @user = current_user.task.find_by(id: params[:id])
+    
+    redirect_to root_url unless @user
   end
 
   def task_params
