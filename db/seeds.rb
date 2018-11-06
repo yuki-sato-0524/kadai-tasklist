@@ -10,3 +10,6 @@
   Task.create(content: "テストタスク　#{i}", status: "テストステ　"+i.to_s)
 end
 
+(1..20).each do |s|
+  User.create(name:"test#{s}", email:"#{s}@gmail.com", password_digest:"#{s}#{s}#{s}#{s}")
+end
